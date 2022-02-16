@@ -1,3 +1,12 @@
+# Local setup for the project.
+We would ned the Kafka clinet to sucessful run the SDK. For MAC we can use the following command.
+
+```
+brew install librdkafka
+```
+
+We need to find the equalant for `librdkafka` in any other OS that we require.
+
 # Nasdaq Cloud Data Service (NCDS)
 
 Nasdaq Cloud Data Service (NCDS) provides a modern and efficient method of delivery for realtime exchange data and other financial information. Data is made available through a suite of APIs, allowing for effortless integration of data from disparate sources, and a dramatic reduction in time to market for customer-designed applications. The API is highly scalable, and robust enough to support the delivery of real-time exchange data.  
