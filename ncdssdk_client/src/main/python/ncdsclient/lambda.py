@@ -45,10 +45,12 @@ try:
         message = consumer.poll(sys.maxsize)
         if message:
             value = message.value()
-            response = send_kinesis(kinesis, kinesis_stream_name, value)
-            print(value)
-            print("="*120)
-            print(response)
+            if value['msgType'] in ['T', 't']:
+                response = send_kinesis(kinesis, kinesis_stream_name, value)
+                print("===value==="*5)
+                print(value)
+                print("===response==="*5)
+                print(response)
 except KafkaException as e:
     logging.exception(f"Error in cont stream {e.args[0].str()}")
 finally:
