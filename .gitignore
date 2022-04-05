@@ -161,3 +161,4 @@ Thumbs.db
 # my gitignore stuff
 python_sdk_local.ipynb
 data_dumps
+ncdssdk_client/src/main/python/ncdsclient/.env
