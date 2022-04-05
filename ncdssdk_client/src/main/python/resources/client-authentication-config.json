@@ -1,5 +1,5 @@
 {
-    "oauth.token.endpoint.uri": "https://{auth_endpoint_url}/auth/realms/pro-realm/protocol/openid-connect/token",
-    "oauth.client.id": "client-id",
-    "oauth.client.secret": "client-secret"
+    "oauth.token.endpoint.uri": "https://clouddataservice.auth.nasdaq.com/auth/realms/pro-realm/protocol/openid-connect/token",
+    "oauth.client.id": "hedgepro-kyle-rawi",
+    "oauth.client.secret": "78bf2c04-d1db-4147-834e-dfd2adb15785"
 }

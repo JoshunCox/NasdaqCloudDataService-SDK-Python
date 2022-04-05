@@ -25,5 +25,8 @@ while 1==1:
     print("loading ",json.dumps(new_dict))
     # time.sleep(0.2)
     
-    kinesis.put_record(StreamName="NasdaqLivePriceKinesis", Data=json.dumps(new_dict), PartitionKey="1")   
+    kinesis.put_record(
+        StreamName="NasdaqLivePriceKinesis", 
+        Data=json.dumps(new_dict), 
+        PartitionKey="1")   
     i+=1

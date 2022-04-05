@@ -1,4 +1,4 @@
 {
-    "bootstrap.servers": "bootstrap-server-endpoint",
+    "bootstrap.servers": "kafka-bootstrap.clouddataservice.nasdaq.com:9094",
     "auto.offset.reset": "earliest"
 }

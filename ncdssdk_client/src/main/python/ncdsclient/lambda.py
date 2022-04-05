@@ -10,60 +10,28 @@ from base64 import b64encode
 import json
 
 def create_client(service, region):
-    return boto3.client(service, region_name=region)
+    return boto3.client("kinesis", region_name="us-west-1")
 
 def send_kinesis(kinesis_client, kinesis_stream_name, data):
     data = json.dumps(data)
-    shardCount = 1 # shard counter
-    # data = b64encode(bytes(str(data), 'utf-8'))
-    # kinesisRecord = [{
-    #     "Data": str(data), # data byte-encoded
-    #     "PartitionKey": str(shardCount) # some key used to tell Kinesis which shard to use
-    # }]
+    shardCount = "1" # shard counter
     response = kinesis_client.put_record(
                 StreamName = kinesis_stream_name,
                 Data=data,
-                PartitionKey=str(shardCount)
+                PartitionKey=shardCount
             )
     return response
-def load_auth_properties(auth_props_file):
-    cfg = {}
-    try:
-        if auth_props_file:
-            with open(auth_props_file) as f:
-                cfg = json.load(f)
-                f.close()
-        else:
-            with resources.open_text(configresources, "client-authentication-config.json") as f:
-                cfg = json.load(f)
-            f.close()
+security_cfg = {
+    "oauth.token.endpoint.uri": "https://clouddataservice.auth.nasdaq.com/auth/realms/pro-realm/protocol/openid-connect/token",
+    "oauth.client.id": "hedgepro-kyle-rawi",
+    "oauth.client.secret": "78bf2c04-d1db-4147-834e-dfd2adb15785"
+}
 
-    except OSError as e:
-        logging.exception(f"Could not open/read file: {auth_props_file}")
-        raise e
+kafka_cfg = {
+    "bootstrap.servers": "kafka-bootstrap.clouddataservice.nasdaq.com:9094",
+    "auto.offset.reset": "earliest"
+}
 
-    return cfg
-
-def load_kafka_config(kafka_cfg_file):
-    cfg = {}
-    try:
-        if kafka_cfg_file:
-            with open(kafka_cfg_file) as f:
-                cfg = json.load(f)
-            f.close()
-        else:
-            with resources.open_text(configresources, "kafka-config.json") as f:
-                cfg = json.load(f)
-            f.close()
-
-    except OSError as e:
-        logging.exception(f"Could not open/read file: {kafka_cfg_file}")
-        raise e
-
-    return cfg 
-
-security_cfg = load_auth_properties("./client-authentication-config.json")
-kafka_cfg = load_kafka_config("./kafka-config.json")
 ncds_client = None
 topic = "NLSUTP"
 
